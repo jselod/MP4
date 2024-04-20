@@ -1,0 +1,75 @@
+---
+title: "MP4"
+author: "Jaan Selod"
+date: "2024-04-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+# Introduction:
+
+# Methods:
+
+Wings were traced from good-quality images using SketchUpWeb, and proportioned such that the span approximated 60 mm and the thickness 2.5 mm. Wing measurements were made using the ruler and shape info features in SketchUp. The wings were subsequently 3D-printed and attached to a standard body model. 
+
+# Results:
+
+```{r load}
+turdidae <- read.csv("Gerjarusak_Laviolette_Selod_bluebird.csv")
+falconidae <- read.csv("Gerjarusak_Laviolette_Selod_bluebird.csv")
+```
+
+```{r measures}
+dat <- read.csv("measures.csv") %>%
+  mutate(totarea = span_mm*chord_mm) %>%
+  mutate(aspratio = ((span_mm/1000)^2)/(wetarea/(10^6)))
+kable(dat, caption = "Table 1: Wing Model Measurements")
+```
+
+```{r calcs_forces}
+lift_avg_turdidae <- mean(turdidae$lift)
+lift_max_turdidae <- max(turdidae$lift)
+lift_avg_falconidae <- mean(falconidae$lift)
+lift_max_falconidae <- max(falconidae$lift)
+
+drag_avg_turdidae <- mean(turdidae$drag)
+drag_max_turdidae <- max(turdidae$drag)
+drag_avg_falconidae <- mean(falconidae$drag)
+drag_max_falconidae <- max(falconidae$drag)
+
+forces <- tibble(
+  family = c("turdidae", "falconidae"),
+  lift_avg = c(lift_avg_turdidae, lift_avg_falconidae),
+  lift_max = c(lift_max_turdidae, lift_max_falconidae),
+  drag_avg = c(drag_avg_turdidae, drag_avg_falconidae),
+  drag_max = c(drag_max_turdidae, drag_max_falconidae)
+)
+
+dat <- dat %>%
+  left_join(forces)
+
+kable(dat, caption = "Table 2: Complete Data with Lift and Drag Forces")
+```
+
+```{r coeffcalcs}
+dat <- dat %>%
+  mutate(Cd = (drag_avg/(0.5*1000*(0.16**2)*totarea*(10^-6)))) %>%
+  mutate(Cl = (lift_avg/(0.5*1000*(0.16**2)*totarea*(10^-6))))
+
+coeffs <- dat %>%
+  mutate(ClCd_ratio = Cl/Cd) %>%
+  select(family, Cd, Cl, ClCd_ratio)
+
+kable(coeffs, caption = "Table 3: Drag and Lift Coefficients")
+
+
+```
+
+
+# Discussion:
+
+# Bibliography:
