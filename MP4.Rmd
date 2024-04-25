@@ -13,9 +13,21 @@ library(knitr)
 
 # Introduction:
 
+In class we have talked in depth about the concepts of lift and drag, the first of which is a component perpendicular to direction of motion while the latter is a component parallel to direction of motion, and the importance of each in the flight behavior of birds. We will explore this relationship by empirically assessing the drag and lift coefficients to compute the lift-to-drag ratio for two species and combine this with class-wide data. 
+
+The aspect ratio of a bird's wing can provide valuable insights into its ecology and flight behavior. Birds with high aspect ratio wings tend to generate more lift and have more efficient gliding capabilities. They can soar for longer periods without flapping their wings extensively. This can be advantageous for birds that cover large distances during foraging, such as seabirds or raptors. Birds with lower aspect ratio wings typically have better maneuverability but may sacrifice some efficiency in gliding. They often flap their wings more frequently during flight, allowing them to make quick turns and maneuvers. This flight style is common among birds that navigate dense vegetation or engage in aerial hunting.
+
+We hypothesize that for a given lift requirement, wings with higher aspect ratios will generally experience lower total drag compared to wings with lower aspect ratios because the reduction in induced drag often outweighs any increase in profile drag associated with higher aspect ratios, and “it is found that flexible wings do offer higher lift-to-drag ratios; in particular, there is a significant reduction in drag with little compromise in lift” [@Fu2018].
+
+
 # Methods:
 
-Wings were traced from good-quality images using SketchUpWeb, and proportioned such that the span approximated 60 mm and the thickness 2.5 mm. Wing measurements were made using the ruler and shape info features in SketchUp. Wetted area corresponds to the area of the wing contacting the airflow, or the product of span and thickness. The wings were subsequently 3D-printed and attached to a standard body model. 
+We began by designing and 3D printing two pairs of biomimetic bird wings by tracing from good-quality images using SketchUpWeb, and proportioned such that the span approximated 60 mm and the thickness 2.5 mm. For our species, we chose the mountain bluebird from the Turdidae family (thrushes) and the peregrine falcon from the Falconidae family (falcons). Wing measurements were made using the ruler and shape info features in SketchUp. The wings were duplicated, subsequently 3D-printed, and attached to a standard gull body model. From the wing models, we were able to calculate the aspect ratio for later analysis. 
+
+We placed our wings and gull model in the flume and anchored it to a “sting”. To simultaneously measure lift and drag forces, we used two binocular Wheatstone bridge load cells and as we “swam” the bird in the swim tunnel for 30 s at a flow velocity of 16 cm/s. From this data, we were able to calculate lift and drag coefficients.
+
+Lastly, we captured images that qualitatively characterized flow patterns at the wing tip to assess vorticity. We did this by using a slow-motion setting on our phone’s camera, increasing the intensity/brightness of the camera, and taking a short clip of the flow over the tip of the wing.
+
 
 # Results:
 
@@ -74,5 +86,15 @@ classdat %>%
 # Discussion:
 
 Figure 1 clearly shows a positive relationship between aspect ratio and lift ratio across the class data. A higher aspect ratio is thus associated with a higher lift ratio, and so in turn with a larger lift coefficient compared to the drag coefficient. From Table 1, we can see that Falconidae has the higher aspect ratio compared to Turdidae, and as expected in terms of lift ratios, Falconidae has the higher ratio (Table 3). 
+
+# Author Contributions:
+- Elisabeth:
+    + Introduction
+    + Methods
+    + Bibliography
+- Jaan:
+    + Results
+    + Discussion
+    + Bibliography
 
 # Bibliography:
