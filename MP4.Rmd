@@ -73,4 +73,6 @@ classdat %>%
 
 # Discussion:
 
+Figure 1 clearly shows a positive relationship between aspect ratio and lift ratio across the class data. A higher aspect ratio is thus associated with a higher lift ratio, and so in turn with a larger lift coefficient compared to the drag coefficient. From Table 1, we can see that Falconidae has the higher aspect ratio compared to Turdidae, and as expected in terms of lift ratios, Falconidae has the higher ratio (Table 3). 
+
 # Bibliography:
