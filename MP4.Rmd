@@ -3,7 +3,7 @@ title: "MP4"
 author: "Elisabeth Laviolette and Jaan Selod"
 date: "2024-04-20"
 output: html_document
-bibliography: BIOL5380
+bibliography: BIOL5380.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -31,19 +31,19 @@ Lastly, we captured images that qualitatively characterized flow patterns at the
 
 # Results:
 
-```{r load}
+```{r load, include = F}
 turdidae <- read.csv("Gerjarusak_Laviolette_Selod_bluebird.csv")
 falconidae <- read.csv("Gerjarusak_Laviolette_Selod_falcon.csv")
 ```
 
-```{r measures}
+```{r measures, echo = F, warning = F, message = F}
 dat <- read.csv("measures.csv") %>%
   mutate(totarea = span_mm*chord_mm) %>%
   mutate(aspratio = ((span_mm/1000)**2)/(wetarea/(10^6)))
 kable(dat, caption = "Table 1: Wing Model Measurements")
 ```
 
-```{r calcs_forces}
+```{r calcs_forces, echo = F, warning = F, message = F}
 lift_avg_turdidae <- mean(turdidae$lift)
 lift_avg_falconidae <- mean(falconidae$lift)
 
@@ -62,7 +62,7 @@ dat <- dat %>%
 kable(dat, caption = "Table 2: Complete Data with Average Lift and Drag Forces")
 ```
 
-```{r coeffcalcs}
+```{r coeffcalcs, echo = F, warning = F, message = F}
 dat <- dat %>%
   mutate(Cd = (drag_avg/(0.5*1000*(0.16**2)*totarea*(10^-6)))) %>%
   mutate(Cl = (lift_avg/(0.5*1000*(0.16**2)*totarea*(10^-6))))
@@ -75,7 +75,7 @@ kable(coeffs, caption = "Table 3: Drag and Lift Coefficients")
 
 ```
 
-```{r classdat}
+```{r classdat, echo = F, warning = F, message = F}
 classdat <- read.csv("class_data.csv", stringsAsFactors = T)
 
 classdat %>%
@@ -85,7 +85,11 @@ classdat %>%
 
 # Discussion:
 
-Figure 1 clearly shows a positive relationship between aspect ratio and lift ratio across the class data. A higher aspect ratio is thus associated with a higher lift ratio, and so in turn with a larger lift coefficient compared to the drag coefficient. From Table 1, we can see that Falconidae has the higher aspect ratio compared to Turdidae, and as expected in terms of lift ratios, Falconidae has the higher ratio (Table 3). 
+Figure 1 clearly shows a positive relationship between aspect ratio and lift ratio across the class data. A higher aspect ratio is thus associated with a higher lift ratio, and so in turn with a larger lift coefficient compared to the drag coefficient. From Table 1, we can see that Falconidae has the higher aspect ratio compared to Turdidae, and as expected in terms of lift ratios, Falconidae has the higher ratio (Table 3). However, this pattern has been not statistically supported in this project just yet. From our data, it appears that the Falconidae species are likelier to glide (perform soaring locomotory behavior) rather than the Turdidae. This is somewhat apparent in Figure 1, where birds such as albatrosses, condors, and falcons have both higher aspect ratios and lift ratios. Indeed, "longer and narrower wings (i.e. those with high aspect ratios) [...] have been associated with higher energetic efficiency of flight" [@Grilli2017]. The falcon's long span compared to its short chord results in a much higher lift coefficient (Table 3). 
+Tradeoffs with the ability to soar include the ability to maneuver efficiently, such as rapid turning. According to @HP2015, birds also face a tradeoff between "energy and time costs" as flapping wings requires muscle energy. Soaring birds are likelier to be found in more open habitats, especially ones in which they can take advantage of updrafts. On the other hand, powered flight birds are likelier to be found in land or forest areas, as they have the tradeoff of having lower speeds. 
+To optimize lift from the wing, birds may have adaptations to lighten their overall body weight, as well as a tapered body shape (to streamline their shape), including modified tail feathers. 
+Our models in the swim tunnels displayed differences in vortices produced at the tips of the 3D-printed wings. We could not quantify the data, but it was evident that both models displayed turbulent flow at the wingtips due to the illuminated particles being pushed backwards despite the waterflow (approximating airflow) being in the opposite direction. The vortex patterns for the Turdidae model went higher as a consequence of the more turbulent flow. This may explain the lower lift ratio in our data for the family, as the drag coefficient was larger in comparison to the lift coefficient than for the falcons. 
+
 
 # Author Contributions:
 - Elisabeth:
@@ -96,5 +100,6 @@ Figure 1 clearly shows a positive relationship between aspect ratio and lift rat
     + Results
     + Discussion
     + Bibliography
+
 
 # Bibliography:
