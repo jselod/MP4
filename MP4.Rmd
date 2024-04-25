@@ -1,8 +1,9 @@
 ---
 title: "MP4"
-author: "Jaan Selod"
+author: "Elisabeth Laviolette and Jaan Selod"
 date: "2024-04-20"
 output: html_document
+bibliography: BIOL5380
 ---
 
 ```{r setup, include=FALSE}
@@ -14,45 +15,39 @@ library(knitr)
 
 # Methods:
 
-Wings were traced from good-quality images using SketchUpWeb, and proportioned such that the span approximated 60 mm and the thickness 2.5 mm. Wing measurements were made using the ruler and shape info features in SketchUp. The wings were subsequently 3D-printed and attached to a standard body model. 
+Wings were traced from good-quality images using SketchUpWeb, and proportioned such that the span approximated 60 mm and the thickness 2.5 mm. Wing measurements were made using the ruler and shape info features in SketchUp. Wetted area corresponds to the area of the wing contacting the airflow, or the product of span and thickness. The wings were subsequently 3D-printed and attached to a standard body model. 
 
 # Results:
 
 ```{r load}
 turdidae <- read.csv("Gerjarusak_Laviolette_Selod_bluebird.csv")
-falconidae <- read.csv("Gerjarusak_Laviolette_Selod_bluebird.csv")
+falconidae <- read.csv("Gerjarusak_Laviolette_Selod_falcon.csv")
 ```
 
 ```{r measures}
 dat <- read.csv("measures.csv") %>%
   mutate(totarea = span_mm*chord_mm) %>%
-  mutate(aspratio = ((span_mm/1000)^2)/(wetarea/(10^6)))
+  mutate(aspratio = ((span_mm/1000)**2)/(wetarea/(10^6)))
 kable(dat, caption = "Table 1: Wing Model Measurements")
 ```
 
 ```{r calcs_forces}
 lift_avg_turdidae <- mean(turdidae$lift)
-lift_max_turdidae <- max(turdidae$lift)
 lift_avg_falconidae <- mean(falconidae$lift)
-lift_max_falconidae <- max(falconidae$lift)
 
 drag_avg_turdidae <- mean(turdidae$drag)
-drag_max_turdidae <- max(turdidae$drag)
 drag_avg_falconidae <- mean(falconidae$drag)
-drag_max_falconidae <- max(falconidae$drag)
 
 forces <- tibble(
   family = c("turdidae", "falconidae"),
   lift_avg = c(lift_avg_turdidae, lift_avg_falconidae),
-  lift_max = c(lift_max_turdidae, lift_max_falconidae),
-  drag_avg = c(drag_avg_turdidae, drag_avg_falconidae),
-  drag_max = c(drag_max_turdidae, drag_max_falconidae)
+  drag_avg = c(drag_avg_turdidae, drag_avg_falconidae)
 )
 
 dat <- dat %>%
   left_join(forces)
 
-kable(dat, caption = "Table 2: Complete Data with Lift and Drag Forces")
+kable(dat, caption = "Table 2: Complete Data with Average Lift and Drag Forces")
 ```
 
 ```{r coeffcalcs}
@@ -66,6 +61,17 @@ coeffs <- dat %>%
 
 kable(coeffs, caption = "Table 3: Drag and Lift Coefficients")
 
+```
+
+```{r classdat}
+classdat <- read.csv("class_data.csv", stringsAsFactors = T)
+
+classdat %>%
+  ggplot(aes(x=AR, y=ClCd, color=bird)) + geom_point() + geom_smooth(method = "lm", col="red") + theme_minimal() + ggtitle("Figure 1: Class Data of Aspect Ratio versus Lift Ratio") + 
+
+```
+
+```{r wingcomparisons}
 
 ```
 
