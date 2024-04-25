@@ -67,14 +67,9 @@ kable(coeffs, caption = "Table 3: Drag and Lift Coefficients")
 classdat <- read.csv("class_data.csv", stringsAsFactors = T)
 
 classdat %>%
-  ggplot(aes(x=AR, y=ClCd, color=bird)) + geom_point() + geom_smooth(method = "lm", col="red") + theme_minimal() + ggtitle("Figure 1: Class Data of Aspect Ratio versus Lift Ratio") + 
+  ggplot(aes(x=AR, y=ClCd, color=bird)) + geom_point() + geom_smooth(method = "lm", col="red") + theme_minimal() + ggtitle("Figure 1: Class Data of Aspect Ratio versus Lift Ratio") + xlab("Aspect Ratio") + ylab("Lift Ratio, Cl/Cd") + labs(col = "Bird Common Species Name")
 
 ```
-
-```{r wingcomparisons}
-
-```
-
 
 # Discussion:
 
